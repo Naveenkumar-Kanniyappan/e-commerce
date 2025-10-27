@@ -1,0 +1,14 @@
+asgiref==3.8.1
+backports.zoneinfo==0.2.1
+certifi==2025.10.5
+charset-normalizer==3.4.4
+django==4.2.25
+django-jazzmin==3.0.1
+idna==3.11
+mysqlclient==2.2.7
+pillow==10.4.0
+razorpay==2.0.0
+requests==2.32.4
+sqlparse==0.5.3
+typing-extensions==4.13.2
+urllib3==2.2.3
