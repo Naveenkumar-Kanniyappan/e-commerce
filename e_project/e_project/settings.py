@@ -13,12 +13,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # -----------------------------
 # SECURITY
 # -----------------------------
-SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-default-key")
+
+SECRET_KEY = os.environ.get("SECRET_KEY", "naveenkumar")
 DEBUG = os.environ.get("DEBUG", "False") == "True"
-
-# Add your Render service URL here
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
-
 # -----------------------------
 # APPLICATIONS
 # -----------------------------
