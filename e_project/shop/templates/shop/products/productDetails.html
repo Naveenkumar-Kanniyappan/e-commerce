@@ -1,0 +1,43 @@
+{% extends 'shop/layouts/main.html' %}
+
+{% block title %}<title>{{ product.name }} | e-Shop</title>{% endblock %}
+
+{% block contend %}
+<div class="container py-5" style="margin-top:70px;">
+  <nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb bg-white rounded shadow-sm p-3">
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'collections' %}">Collections</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'collectionsview' category.name %}">{{ category.name }}</a></li>
+      <li class="breadcrumb-item active">{{ product.name }}</li>
+    </ol>
+  </nav>
+
+  <div class="row bg-light py-5 my-5">
+    <div class="col-md-6">
+      <img src="{{ product.product_image.url }}" class="img-fluid rounded" alt="{{ product.name }}">
+    </div>
+    <div class="col-md-6">
+      <h2 class="fw-bold">{{ product.name }}</h2>
+      <p class="text-muted">{{ product.description }}</p>
+      <hr style="border-color: #b8bfc2;">
+      <p>
+        <span class="new_price">₹{{ product.selling_price|stringformat:"d" }}</span>
+        {% if product.original_price > product.selling_price %}
+        <span class="old_price text-muted"><del>₹{{ product.original_price|stringformat:"d" }}</del></span>
+        {% endif %}
+      </p>
+      {% if product.trending %}<span class="badge bg-success">Trending</span>{% endif %}
+
+      <div class="mt-4">
+        {% if product.quantity > 0 %}
+          <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary btn-lg me-2"><i class="fa-solid fa-cart-plus me-2"></i>Add to Cart</a>
+          <a href="{% url 'buy_now' product.id %}" class="btn btn-success btn-lg"><i class="fa-solid fa-bag-shopping me-2"></i>Buy Now</a>
+        {% else %}
+          <button class="btn btn-outline-danger btn-lg" disabled><i class="fa fa-times me-1"></i>Out of Stock</button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock contend %}

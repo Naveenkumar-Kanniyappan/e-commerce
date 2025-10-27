@@ -1,0 +1,125 @@
+body {
+    font-family: 'Noto Sans', sans-serif;
+    background-color: #f5f5f5;
+}
+
+.carousel-inner img {
+    width: 100%;        /* full width */
+    height: 250px;      /* fixed height */
+    object-fit: cover;  /* crop image nicely to fill the area */
+}
+
+
+/* Product Card */
+.product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Product Image Box */
+.product-img-box {
+    width: 100%;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #f8f9fa;
+    border-radius: 8px 8px 0 0;
+}
+
+.product-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-img {
+    transform: scale(1.05);
+}
+
+/* Badge Top */
+.badge-top {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #28a745;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    z-index: 10;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+/* Price Styling */
+.price-container {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.new_price {
+    font-weight: bold;
+    color: #28a745;
+    font-size: 1.1rem;
+}
+
+.old_price {
+    font-weight: bold;
+    color: #dc3545;
+    text-decoration: line-through;
+    font-size: 0.9rem;
+}
+
+/* Action Buttons appear on hover */
+.action-buttons {
+    display: flex;
+    gap: 5px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.product-card:hover .action-buttons {
+    opacity: 1;
+}
+
+/* Trending Badge inside card body */
+.trending-badge {
+    font-size: 0.8rem;
+    padding: 3px 6px;
+}
+
+
+.pic-box {
+    position: relative; /* Needed for absolute positioning of .hot */
+}
+
+.hot {
+    background-color: green;
+    color: white;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    line-height: 60px; /* vertically center the icon */
+    font-size: 1.2rem; /* adjust size */
+    font-weight: bold;
+    border-radius: 50%; /* make it circular */
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}

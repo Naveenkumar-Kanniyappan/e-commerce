@@ -1,0 +1,66 @@
+{% extends 'shop/layouts/main.html' %}
+
+{% block title %}
+<title>e-shop - Products</title>
+{% endblock title %}
+
+{% block contend %}
+<div class="container py-5" style="margin-top:70px;">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb bg-white rounded shadow-sm p-3">
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'collections' %}">Collections</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ category.name|default:'All Products' }}</li>
+    </ol>
+  </nav>
+
+  <div class="mb-3">
+    <h4 class="mb-3">Products in "{{ category.name|default:'All Products' }}"</h4>
+    <hr style="border-color: #b8bfc2;">
+  </div>
+
+  <div class="row">
+    {% for product in products %}
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm">
+
+        <a href="{% url 'productDetails' cname=product.category.name pname=product.name %}">
+          <img src="{{ product.product_image.url }}" class="card-img-top rounded-top" alt="{{ product.name }}">
+        </a>
+
+        <div class="card-body">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <hr style="border-color: #b8bfc2;">
+
+          <p class="mb-2 price-container">
+            <span class="new_price">Price ₹{{ product.selling_price|stringformat:"d" }}</span>
+            {% if product.original_price > product.selling_price %}
+            <span class="old_price text-muted">
+              <del>₹{{ product.original_price|stringformat:"d" }}</del>
+            </span>
+            {% endif %}
+          </p>
+
+          {% if product.trending %}
+          <span class="badge bg-success trending-badge">Trending</span>
+          {% endif %}
+
+          <div class="mt-3">
+            <a href="{% url 'productDetails' cname=product.category.name pname=product.name %}" 
+               class="btn btn-outline-primary btn-sm">
+              <i class="fa-solid fa-eye me-2"></i>View Details
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="text-center text-muted">
+      <p>No products available in this category.</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock contend %}

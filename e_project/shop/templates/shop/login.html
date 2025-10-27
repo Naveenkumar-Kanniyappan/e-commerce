@@ -1,0 +1,43 @@
+{% extends 'shop/layouts/main.html' %}
+
+{% block title %}
+<title>e-shop - Login</title>
+{% endblock title %}
+
+{% block contend %}
+<div class="container" style="margin-top: 70px">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <h3 class="card-title text-center mb-4">Login to Your Account</h3>
+
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        {% for field in form %}
+                            <div class="mb-3">
+                                {{ field.label_tag }}
+                                {{ field }}
+                                {% for error in field.errors %}
+                                    <div class="text-danger small">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+
+                        <button type="submit" class="btn btn-primary w-100">Login</button>
+                    </form>
+
+                    <div class="text-center mt-3">
+                        Don't have an account? <a href="{% url 'register' %}">Register here</a>
+                    </div>
+
+                    <div class="text-center mt-2">
+                        <a href="{% url 'reset_password' %}">Forgot Password?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock contend %}

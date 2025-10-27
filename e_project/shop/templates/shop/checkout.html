@@ -1,0 +1,75 @@
+{% extends 'shop/layouts/main.html' %}
+{% load cart_extras %}
+
+{% block title %}
+<title>Checkout</title>
+{% endblock title %}
+
+{% block contend %}
+<div class="container my-5">
+    <h2 class="mb-4">Checkout</h2>
+    <div class="row">
+        <div class="col-md-7">
+            <form id="payment-form" method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="fullname">Full Name</label>
+                    <input type="text" id="fullname" name="fullname" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="address">Address</label>
+                    <textarea id="address" name="address" class="form-control" rows="3" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="phone">Phone</label>
+                    <input type="text" id="phone" name="phone" class="form-control" required>
+                </div>
+
+                <button id="rzp-button" type="button" class="btn btn-success w-100">Pay ₹{{ total }}</button>
+            </form>
+        </div>
+
+        <div class="col-md-5">
+            <h4>Order Summary</h4>
+            <ul class="list-group mb-3">
+                {% for item in cart_items %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ item.product.name }} × {{ item.quantity }}
+                    <span>₹{{ item.subtotal }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+            <p class="fw-bold">Total: ₹{{ total }}</p>
+        </div>
+    </div>
+</div>
+
+<!-- Razorpay JS SDK -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    var options = {
+        "key": "{{ razorpay_key }}",
+        "amount": "{{ order_amount }}",
+        "currency": "{{ order_currency }}",
+        "name": "Fitness Shop",
+        "description": "Order Payment",
+        "order_id": "{{ razorpay_order_id }}",
+        "handler": function (response){
+            fetch("{% url 'payment_success' %}", {
+                method: "POST",
+                headers: { "X-CSRFToken": "{{ csrf_token }}" },
+                body: JSON.stringify(response)
+            }).then(() => {
+                alert("Payment successful!");
+                window.location.href = "/";
+            });
+        },
+        "theme": { "color": "#198754" }
+    };
+    var rzp1 = new Razorpay(options);
+    document.getElementById('rzp-button').onclick = function(e){
+        rzp1.open();
+        e.preventDefault();
+    }
+</script>
+{% endblock %}
